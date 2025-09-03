@@ -13,21 +13,7 @@ namespace RanjaKen.Api.Middleware
                 await _next(context);
             }
 
-            //catch (ValidationException ex)
-            //{
-            //    string date = DateTime.UtcNow.ToString("dd/MM/yyyy HH:mm:ss");
-
-            //    _logger.LogError($"Date : {date} | Validation errors: {string.Join(" | ", ex.Errors.Select(e => $"{e.PropertyName}: {e.ErrorMessage}"))}");
-
-            //    var errorDetails = ex.Errors.Select(e => new
-            //    {
-            //        propertyName = e.PropertyName,
-            //        errorMessage = e.ErrorMessage
-            //    });
-
-            //    await WriteResponseAsync(context, StatusCodes.Status400BadRequest, "Erreur de validation.", errorDetails);
-            //}
-      
+         
             catch (ExistingPlayerException ex)
             {
                 string date = DateTime.UtcNow.ToString("dd//MM//yyyy hh:mm:ss");
@@ -51,6 +37,7 @@ namespace RanjaKen.Api.Middleware
                 await WriteResponseAsync(context, StatusCodes.Status400BadRequest, ex.Message, false);
 
             }
+
             
             catch (Exception ex)
             {
