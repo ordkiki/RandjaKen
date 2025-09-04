@@ -19,7 +19,7 @@ namespace Ranjaken.Application.Features.Teams.Command.UpdtateTeam
             team.PhoneNumber = request?.PhoneNumber ?? team.PhoneNumber;
             team.EmailAdress = request?.EmailAdress ?? team.EmailAdress;
             team.Status = team.Status;
-            team.Logo = await _file.UploadAsync(request?.Attachement, "Team_Logo");
+            team.Logo = await _file.UploadAsync(request?.Logo, "Team_Logo") ?? team.Logo;
 
             Team updatedTeam = await _repo.UpdateAsync(request?.Id, team);
             await _repo.SaveChangeAsync();

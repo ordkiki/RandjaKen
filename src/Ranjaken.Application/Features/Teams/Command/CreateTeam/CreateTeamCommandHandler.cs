@@ -25,7 +25,7 @@ namespace Ranjaken.Application.Features.Teams.Command.CreateTeam
                 
             };
             team.Status = InsriptionStatus.PENDING;
-            team.Logo = await _file.UploadAsync(request?.Attachement, "Logo");
+            team.Logo = await _file.UploadAsync(request?.Attachement, "Logo") ?? null;
             await _repo.CreateAsync(team);
             await _repo.SaveChangeAsync();
             return team.ToDto();

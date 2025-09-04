@@ -4,6 +4,7 @@ using Ranjaken.Application.Dtos.PlayerDto;
 using Ranjaken.Application.Features.Players.Query.GetPlayerById;
 using Ranjaken.Application.Features.Users.Command.CreatePlayer;
 using Ranjaken.Application.Features.Users.Command.DeletePlayer;
+using Ranjaken.Application.Features.Users.Command.UpdatePlayer;
 using Ranjaken.Application.Features.Users.Query.GetAllPlayer;
 using RanjaKen.Api.Model;
 
@@ -27,6 +28,32 @@ namespace RanjaKen.Api.Controllers
                 Size = request.Size,
                 Avatar = request.Avatar,
                 TeamId = request.TeamId,
+                Position = request.Position,
+            });
+            return Ok(new ApiResponse<PlayerDto>
+            {
+                Success = true,
+                Code = StatusCodes.Status201Created,
+                Data = result,
+                Message = "created with success",
+                Meta = null
+            });
+        }
+        #endregion
+
+        #region Update
+        [HttpPut("{PLayerId}")]
+        public async Task<IActionResult> Update([FromRoute]Guid PlayerId, [FromForm] UpdatePlayerRequest request)
+        {
+            PlayerDto result = await _mediator.Send(new UpdatePlayercommand
+            {
+                Id = PlayerId,  
+                LastName = request.LastName,
+                FirstName = request.FirstName,
+                Pseudo = request.Pseudo,
+                Age = request.Age,
+                Size = request.Size,
+                Avatar = request.Avatar,
                 Position = request.Position,
             });
             return Ok(new ApiResponse<PlayerDto>

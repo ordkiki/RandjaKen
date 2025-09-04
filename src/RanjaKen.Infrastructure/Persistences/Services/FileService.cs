@@ -16,7 +16,7 @@ namespace RanjaKen.Infrastructure.Persistences.Services
         public async Task<Resource> UploadAsync(IFormFile file, string folder)
         {
             if (file == null || file == null || file.Length == 0)
-                throw new Exception("No file found");
+                return null;    
             string? basePath = configuration.GetSection("FileStorage:BasePath").Value;
 
             if (string.IsNullOrWhiteSpace(basePath))

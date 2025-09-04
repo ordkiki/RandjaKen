@@ -15,6 +15,7 @@ namespace Ranjaken.Application.Features.Teams.Query.GetBy
             Func<IQueryable<Team>, IIncludableQueryable<Team, object?>>? include =
                 query => query
                     .Include(e => e.Players);
+            
             Team? team = await _repo.GetByAsync(request.Id, include ?? null) ??
                 throw new ApiException($"We can't found this {request.Id}", 400, false);
 

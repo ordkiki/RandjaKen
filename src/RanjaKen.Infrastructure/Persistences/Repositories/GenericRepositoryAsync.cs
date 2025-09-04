@@ -67,7 +67,7 @@ namespace RanjaKen.Infrastructure.Persistences.Repositories
         }
 
         public async Task<(IEnumerable<T> Data, long Total, int AllPage)> GetAllAsync(
-            Expression<Func<T, bool>> filterExpression, 
+            Expression<Func<T, bool>>? filterExpression, 
             List<Expression<Func<T, object>>>? includes = null, 
             Func<IQueryable<T>, 
             IOrderedQueryable<T>>? orderBy = null, 

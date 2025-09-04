@@ -30,7 +30,7 @@ namespace Ranjaken.Application.Features.Users.Command.CreatePlayer
                 Position = request?.Position,
                 TeamId = request?.TeamId,
             };
-            player.Avatar = await _file.UploadAsync(request?.Avatar, "Player");
+            player.Avatar = await _file.UploadAsync(request?.Avatar, "Player") ?? throw new ApiException("avatar must be required", 400, false);
             await _repo.CreateAsync(player);
             await _repo.SaveChangeAsync();
             PlayerDto result = player.ToDto();

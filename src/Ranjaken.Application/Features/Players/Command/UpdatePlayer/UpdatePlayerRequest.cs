@@ -1,10 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Http;
+using Ranjaken.Domain.Enums;
 
 namespace Ranjaken.Application.Features.Users.Command.UpdatePlayer
 {
-    public record UpdatePlayerRequest(string? LastName, string? FirstName, int? Size, int? Age, string? Position, string? Experience, string? Avatar); 
+    public record UpdatePlayerRequest
+    {
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public int? Age { get; set; }
+        public string? Pseudo { get; set; }
+        public int? Size { get; set; }
+        public PlayerPosition? Position { get; set; }
+        public IFormFile? Avatar { get; set; }
+    }
 }

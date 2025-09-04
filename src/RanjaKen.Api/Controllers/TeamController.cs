@@ -5,6 +5,7 @@ using Ranjaken.Application.Dtos.PlayerDto;
 using Ranjaken.Application.Features.Players.Query.GetPlayerById;
 using Ranjaken.Application.Features.Teams.Command.CreateTeam;
 using Ranjaken.Application.Features.Teams.Command.DeleteTeam;
+using Ranjaken.Application.Features.Teams.Command.UpdtateTeam;
 using Ranjaken.Application.Features.Teams.Query.GetAllTeam;
 using Ranjaken.Application.Features.Teams.Query.GetBy;
 using Ranjaken.Application.Features.Users.Command.CreatePlayer;
@@ -37,6 +38,32 @@ namespace RanjaKen.Api.Controllers
                 Code = StatusCodes.Status201Created,
                 Data = result,
                 Message = "created with  success",
+                Meta = null
+            });
+        }
+        #endregion
+
+
+        #region Update
+        [HttpPut("{TeamId}")]
+        public async Task<IActionResult> Update([FromRoute] Guid? TeamId, [FromForm] UpdateTeamCommand request)
+        {
+            TeamDto result = await _mediator.Send(new UpdateTeamCommand
+            {
+                Id = TeamId,
+                Name = request.Name,
+                Slogan = request.Slogan,
+                Bio = request.Bio,
+                EmailAdress = request.EmailAdress,
+                PhoneNumber = request.PhoneNumber,
+                Logo = request.Logo,
+            });
+            return Ok(new ApiResponse<TeamDto>
+            {
+                Success = true,
+                Code = StatusCodes.Status200OK,
+                Data = result,
+                Message = "updated with success",
                 Meta = null
             });
         }

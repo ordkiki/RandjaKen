@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FluentValidation;
+using Ranjaken.Application.Features.Users.Command.UpdatePlayer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +8,32 @@ using System.Threading.Tasks;
 
 namespace Ranjaken.Application.Features.Players.Command.UpdatePlayer
 {
-    public class UpdatePlayerValidator
+    public class UpdatePlayerValidator : AbstractValidator<UpdatePlayercommand>
     {
+        private readonly string[] allowedContentTypes = new[] { "image/jpeg", "image/png", "image/jpg", "image/gif", "image/jfif" };
+        private const long maxSizeInBytes = 5 * 1024 * 1024;
+        public UpdatePlayerValidator()
+        {
+            RuleFor(x => x.FirstName)
+                   .NotEmpty().WithMessage("First name is required.")
+                   .MaximumLength(50).WithMessage("First name must not exceed 50 characters.");
+            RuleFor(x => x.Pseudo)
+                .NotEmpty().WithMessage("Pseudo  is required.")
+                .MaximumLength(50).WithMessage("Pseudo  must not exceed 50 characters.");
+            RuleFor(x => x.LastName)
+                .NotEmpty().WithMessage("First name is required.")
+                .MaximumLength(50).WithMessage("First name must not exceed 50 characters.");
+            RuleFor(x => x.Age).NotEmpty().WithMessage("Age is required.")
+                .InclusiveBetween(8, 35).WithMessage("Age must be between 5 and 50.");
+            RuleFor(x => x.Size).NotEmpty().WithMessage("Age is required.")
+                .InclusiveBetween(0, 350).WithMessage("Size must be between 0 and 350cm.");
+
+            When(x => x.Avatar != null, () => RuleFor(x => x.Avatar)
+                .Must(file => file != null && file.Length > 0).WithMessage("Le fichier ne peut pas être vide.")
+                .Must(file => file != null && allowedContentTypes.Contains(file.ContentType)).WithMessage("Le type de fichier n'est pas pris en charge (jpg, jpeg, png, gif).")
+                .Must(file => file != null && file.Length <= maxSizeInBytes).WithMessage("Le fichier ne doit pas dépasser 5 Mo.")
+            );
+        }
+
     }
 }

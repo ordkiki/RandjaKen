@@ -1,10 +1,7 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Http;
 using Ranjaken.Application.Dtos.PlayerDto;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Ranjaken.Domain.Enums;
 
 namespace Ranjaken.Application.Features.Users.Command.UpdatePlayer
 {
@@ -13,8 +10,10 @@ namespace Ranjaken.Application.Features.Users.Command.UpdatePlayer
         public Guid? Id { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
-        public string? Matricule { get; set; }
-        public string? EmailAdress { get; set; }
-        public string? Telephone { get; set; }
+        public int? Age { get; set; }
+        public string? Pseudo { get; set; }
+        public int? Size { get; set; }
+        public PlayerPosition? Position { get; set; }
+        public IFormFile? Avatar { get; set; }
     }
 }
