@@ -13,20 +13,26 @@ namespace RanjaKen.Api.Middleware
                 await _next(context);
             }
 
-         
-            catch (ExistingPlayerException ex)
+            catch (ExistingEntityException ex)
             {
                 string date = DateTime.UtcNow.ToString("dd//MM//yyyy hh:mm:ss");
                 _logger.LogError($"Date : {date} email is already used by another employee : {ex.Message}");
                 await WriteResponseAsync(context, StatusCodes.Status400BadRequest, ex.Message, ex.Success);
             }
-            
+
+
+            catch (ValidationException ex)
+            {
+                string date = DateTime.UtcNow.ToString("dd//MM//yyyy hh:mm:ss");
+                _logger.LogError($"Validation exception : {date} : \n message :{ex.Message}");
+                await WriteResponseAsync(context, StatusCodes.Status400BadRequest, ex.Message);
+            }
+
+
             catch (ApiException ex)
             {
                 string date = DateTime.UtcNow.ToString("dd//MM//yyyy hh:mm:ss");
-
                 _logger.LogError($"Date : {date} ApiValidation  gere : {ex.Message}");
-
                 await WriteResponseAsync(context, StatusCodes.Status400BadRequest, ex.Message, ex.Success);
             }
 
@@ -35,7 +41,6 @@ namespace RanjaKen.Api.Middleware
                 string date = DateTime.UtcNow.ToString("dd//MM//yyyy hh:mm:ss");
                 _logger.LogError($"Date : {date} Argumenation exception gere : {ex.Message}");
                 await WriteResponseAsync(context, StatusCodes.Status400BadRequest, ex.Message, false);
-
             }
 
             

@@ -16,6 +16,7 @@ namespace RanjaKen.Infrastructure.Commons.Extensions
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
             services.AddScoped(typeof(IGenericRepositoryAsync<>), typeof(GenericRepositoryAsync<>));
+            services.AddScoped(typeof(IGenericEmailService<>), typeof(GenericEmailService<>));
             services.AddScoped(typeof(IFileService), typeof(FileService));
             
             return services;

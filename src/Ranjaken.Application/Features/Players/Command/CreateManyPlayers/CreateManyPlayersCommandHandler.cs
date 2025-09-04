@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Ranjaken.Application.Dtos.PlayerDto;
+using Ranjaken.Application.Features.Players.Command.CreateManyPlayers;
 using Ranjaken.Application.Features.Users.Command.CreatePlayer;
 using Ranjaken.Application.Mappers;
 using Ranjaken.Domain.Entities;
@@ -25,7 +26,7 @@ namespace Ranjaken.Application.Features.Users.Command.CreateManyPlayers
 
             List<Player> players = new();
 
-            foreach (CreatePlayerCommand playerRequest in request?.Players)
+            foreach (var playerRequest in request?.Players)
             {
                 Player player = new()
                 {
@@ -35,8 +36,8 @@ namespace Ranjaken.Application.Features.Users.Command.CreateManyPlayers
                     Age = playerRequest.Age,
                     Size = playerRequest.Size,
                     Position = playerRequest.Position,
+                    Avatar = playerRequest.Avatar,
                     TeamId = request.TeamId,
-                    Avatar = await _file.UploadAsync(playerRequest.Avatar, "Player") ?? null
                 };
 
                 players.Add(player);

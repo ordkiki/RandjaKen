@@ -2,5 +2,7 @@
 
 namespace Ranjaken.Application.Features.Users.Command.CreateManyPlayers
 {
-    public record CreateManyPlayersRequest(CreatePlayerRequest[]? Players);
+    public record CreateManyPlayersRequest(List<CreatePlayerCommand>? Players);
+
+
 }

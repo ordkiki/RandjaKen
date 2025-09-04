@@ -2,16 +2,17 @@
 using Microsoft.Extensions.Configuration;
 using Ranjaken.Domain.Interfaces.Services;
 using Ranjaken.Domain.ValuesObject;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RanjaKen.Infrastructure.Persistences.Services
 {
     public class FileService(IConfiguration configuration) : IFileService
     {
+        public Task<bool> DeleteAsync(IFormFile? file, string path)
+        {
+            
+            return null;
+        }
+
         public async Task<Resource> UploadAsync(IFormFile file, string folder)
         {
             if (file == null || file == null || file.Length == 0)

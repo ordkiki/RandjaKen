@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Ranjaken.Application.Dtos.PlayerDto;
+using Ranjaken.Application.Features.Players.Command.CreateManyPlayers;
 using Ranjaken.Application.Features.Players.Query.GetPlayerById;
 using Ranjaken.Application.Features.Users.Command.CreateManyPlayers;
 using Ranjaken.Application.Features.Users.Command.CreatePlayer;
@@ -10,13 +11,14 @@ using RanjaKen.Api.Model;
 
 namespace RanjaKen.Api.Controllers
 {
+    
     [ApiController]
     [Route("api/[controller]/")]
     public class PlayerController(IMediator _mediator) : ControllerBase
     {
         #region Create
         [HttpPost]
-        public async Task<IActionResult> Create([FromForm] CreatePlayerRequest request)
+        public async Task<IActionResult> Create([FromForm] CreatePlayerCommand request)
         {
             PlayerDto result = await _mediator.Send(new CreatePlayerCommand
             {
@@ -39,19 +41,21 @@ namespace RanjaKen.Api.Controllers
         }
         #endregion
 
+
         #region CreateMany
-        [HttpPost("many")]
-        public async Task<IActionResult> CreateMany([FromQuery] Guid TeamId, [FromForm] CreateManyPlayersRequest request)
+        [HttpPost("Many")]
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> CreateMany([FromQuery] Guid TeamId, [FromBody] CreateManyPlayersCommand request)
         {
-            if (request.Players == null || !request.Players.Any())
+            if (request.Players == null || request.Players.Count == 0)
             {
                 return BadRequest("Players list cannot be null or empty.");
             }
 
-            var result = await _mediator.Send(new CreateManyPlayersCommand
+            List<PlayerDto>? result = await _mediator.Send(new CreateManyPlayersCommand
             {
                 TeamId = TeamId,
-                Players = request.Players?.Select(p => new CreatePlayerCommand
+                Players = request?.Players?.Select(p => new CreateOnePlayerCommand
                 {
                     FirstName = p.FirstName,
                     LastName = p.LastName,

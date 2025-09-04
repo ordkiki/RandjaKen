@@ -1,20 +1,17 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Http;
-using Ranjaken.Application.Dtos.PlayerDto;
+﻿using Microsoft.AspNetCore.Http;
 using Ranjaken.Domain.Enums;
 using Ranjaken.Domain.ValuesObject;
 
-namespace Ranjaken.Application.Features.Users.Command.CreatePlayer
+namespace Ranjaken.Application.Features.Players.Command.CreateManyPlayers
 {
-    public class CreatePlayerCommand : IRequest<PlayerDto>
+    public record CreateOnePlayerCommand
     {
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public int? Age { get; set; }
         public string? Pseudo { get; set; }
+        public Resource? Avatar { get; set; }
         public int? Size { get; set; }
         public PlayerPosition? Position { get; set; }
-        public IFormFile? Avatar { get; set; }
-        public Guid? TeamId { get; set; }
     }
 }

@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ranjaken.Domain.Enums
+namespace Ranjaken.Domain.Commons
 {
-    public enum Role
+    public interface IHasEmail
     {
-        USER, ADMIN
+        string? EmailAdress { get; set; }
     }
 }

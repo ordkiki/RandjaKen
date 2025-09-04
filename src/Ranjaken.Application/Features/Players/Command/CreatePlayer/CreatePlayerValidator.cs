@@ -4,8 +4,14 @@ namespace Ranjaken.Application.Features.Users.Command.CreatePlayer
 {
     public class CreatePlayerValidator : AbstractValidator<CreatePlayerCommand>
     {
+        private readonly string[] allowedContentTypes = new[] { "image/jpeg", "image/png", "image/jpg", "image/gif", "image/jfif" };
+        private const long maxSizeInBytes = 5 * 1024 * 1024;
+
         public CreatePlayerValidator()
         {
+            RuleFor(x => x.TeamId)
+                .NotEmpty().WithMessage("First name is required.")
+                .NotEqual(Guid.Empty).WithMessage("TeamId Id must be a valid non-empty GUID.");
             RuleFor(x => x.FirstName)
                 .NotEmpty().WithMessage("First name is required.")
                 .MaximumLength(50).WithMessage("First name must not exceed 50 characters.");
@@ -19,13 +25,12 @@ namespace Ranjaken.Application.Features.Users.Command.CreatePlayer
                 .InclusiveBetween(8, 35).WithMessage("Age must be between 5 and 50.");
             RuleFor(x => x.Size).NotEmpty().WithMessage("Age is required.")
                 .InclusiveBetween(0, 350).WithMessage("Size must be between 0 and 350cm.");
-            //RuleFor(x => x.EmailAdress).Matches(@"^(?!\.)(""([^""\r\\]|\\[""\r\\])*""|" +
-            //         @"([-a-zA-Z0-9!#\$%&'\*\+/=\?\^_`\{\}\|~\w])+(?:\.[-a-zA-Z0-9!#\$%&'\*\+/=\?\^_`\{\}\|~\w]+)*)" +
-            //         @"@((\[(\d{1,3}\.){3}\d{1,3}\])|(([a-zA-Z0-9\-]+\.)+[a-zA-Z]{2,}))$")
-            //    .WithMessage("Email Format does not valid");
-            //RuleFor(x => x.Telephone).NotEmpty().WithMessage("Telephone is required.")
-            //    .Matches("^\\+?[0-9]+$").WithMessage("Only numeric")
-            //    .MaximumLength(15).WithMessage("Telephone must not exceed 15 characters.");
+
+            When(x => x.Avatar != null, () => RuleFor(x => x.Avatar)
+                .Must(file => file != null && file.Length > 0).WithMessage("Le fichier ne peut pas être vide.")
+                .Must(file => file != null && allowedContentTypes.Contains(file.ContentType)).WithMessage("Le type de fichier n'est pas pris en charge (jpg, jpeg, png, gif).")
+                .Must(file => file != null && file.Length <= maxSizeInBytes).WithMessage("Le fichier ne doit pas dépasser 5 Mo.")
+            );
         }
     }
 }

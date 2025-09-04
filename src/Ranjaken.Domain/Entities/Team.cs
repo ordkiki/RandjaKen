@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Ranjaken.Domain.Entities
 {
-    public class Team : Entity
+    public class Team : Entity, IHasEmail
     {
         public string? Name { get; set; }
         public Resource? Logo { get; set; }

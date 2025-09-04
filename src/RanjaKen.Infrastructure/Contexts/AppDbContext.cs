@@ -12,6 +12,7 @@ namespace RanjaKen.Infrastructure.Contexts
     {
         public DbSet<Player> Players { get; set; }
         public DbSet<Team> Teams { get; set; }
+        public DbSet<User> Users { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -58,6 +59,15 @@ namespace RanjaKen.Infrastructure.Contexts
                     .WithMany()
                     .HasForeignKey(c => c.TeamId)
                     .OnDelete(DeleteBehavior.Cascade);
+            });
+            #endregion
+
+            #region Team
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.HasKey(c => c.Id);
+                entity.Property(team => team.EmailAdress).IsRequired(false);
+                entity.Property(team => team.Password).IsRequired(false);
             });
             #endregion
 
