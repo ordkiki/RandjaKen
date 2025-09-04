@@ -101,7 +101,7 @@ namespace RanjaKen.Infrastructure.Persistences.Repositories
 
 
 
-        public async Task<T> GetByAsync(Guid? Id, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include, Expression<Func<T, T>>? projection = null)
+        public async Task<T?> GetByAsync(Guid? EntityId, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include, Expression<Func<T, T>>? projection = null)
         {
             try
             {
@@ -112,13 +112,13 @@ namespace RanjaKen.Infrastructure.Persistences.Repositories
                 }
                 if (projection is null)
                 {
-                    T? result = await query.FirstOrDefaultAsync(e => e.Id == Id);
+                    T? result = await query.FirstOrDefaultAsync(e => e.Id == EntityId);
                     return result;
                 }
                 else
                 {
                     T? result = await _dbSet
-                        .Where(e => e.Id == Id)
+                        .Where(e => e.Id == EntityId)
                         .Select(projection)
                         .FirstOrDefaultAsync();
                     return result;

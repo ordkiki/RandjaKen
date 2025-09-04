@@ -13,6 +13,7 @@ namespace Ranjaken.Application.Mappers
             PlayerDto.Age = user.Age;
             PlayerDto.Size = user.Size;
             PlayerDto.Position = user.Position.ToString();
+            
             return PlayerDto;
         }
 

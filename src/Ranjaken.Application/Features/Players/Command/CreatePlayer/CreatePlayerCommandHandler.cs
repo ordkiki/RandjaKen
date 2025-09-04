@@ -1,4 +1,6 @@
 ﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using Ranjaken.Application.Dtos.PlayerDto;
 using Ranjaken.Application.Mappers;
 using Ranjaken.Domain.Entities;
@@ -14,12 +16,8 @@ namespace Ranjaken.Application.Features.Users.Command.CreatePlayer
 
         public async Task<PlayerDto> Handle(CreatePlayerCommand request, CancellationToken cancellationToken)
         {
-            Expression<Func<Team, Team>>? projection =
-               team => new Team
-               {
-                   Id = team.Id,
-                   Name = team.Name,
-               };
+            Expression<Func<Team, Team>>? projection = team => new Team {Id = team.Id, Name = team.Name};
+
             Team team = await _repoTeam.GetByAsync(request.TeamId, null, projection) ?? throw new ApiException("No team found with this Id", 400, false);
 
             Player player = new()
@@ -35,7 +33,9 @@ namespace Ranjaken.Application.Features.Users.Command.CreatePlayer
             player.Avatar = await _file.UploadAsync(request?.Avatar, "Player");
             await _repo.CreateAsync(player);
             await _repo.SaveChangeAsync();
-            return player.ToDto();
+            PlayerDto result = player.ToDto();
+            result.TeamName = team.Name;
+            return result;
         }
     }
 }

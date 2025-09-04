@@ -2,9 +2,9 @@
 
 namespace Ranjaken.Application.Features.Users.LoginUser
 {
-    public class LoginCommandValidator : AbstractValidator<LoginUserCommand>
+    public class LoginValidator : AbstractValidator<LoginUserCommand>
     {
-        public LoginCommandValidator()
+        public LoginValidator()
         {
             RuleFor(x => x.EmailAdress)
                 .NotEmpty().WithMessage("Email address is required.");

@@ -9,9 +9,6 @@ namespace Ranjaken.Application.Features.Users.Command.CreatePlayer
 
         public CreatePlayerValidator()
         {
-            RuleFor(x => x.TeamId)
-                .NotEmpty().WithMessage("First name is required.")
-                .NotEqual(Guid.Empty).WithMessage("TeamId Id must be a valid non-empty GUID.");
             RuleFor(x => x.FirstName)
                 .NotEmpty().WithMessage("First name is required.")
                 .MaximumLength(50).WithMessage("First name must not exceed 50 characters.");
