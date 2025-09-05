@@ -7,7 +7,8 @@ using RanjaKen.Api.Model;
 namespace RanjaKen.Api.Controllers
 {
     [ApiController]
-    [Route("api/[controller]/")]
+    [Route("api/v{version:apiVersion}/[controller]")]
+    [ApiVersion("1.0")]
     public class UserController(IMediator _mediator) : ControllerBase
     {
         #region Create

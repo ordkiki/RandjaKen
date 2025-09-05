@@ -1,17 +1,13 @@
 ﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Ranjaken.Domain.Enums;
 
 namespace Ranjaken.Application.Features.Teams.Query.GetAllTeam
 {
     public class GetAllTeamQuery : IRequest<GetAllTeamResponse>
     {
         public string? Search { get; set; }
-        public int Page { get; set; } = 1;
-        public int TotalPage { get; set; } = 1;
+        public int? Page { get; set; } = 1;
         public int? Limit { get; set; } = 10;
+        public string? Status { get; set; }
     }
 }

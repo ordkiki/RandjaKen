@@ -7,7 +7,7 @@ namespace Ranjaken.Application.Features.Users.Command.UpdatePlayer
 {
     public class UpdatePlayercommand : IRequest<PlayerDto>
     {
-        public Guid? Id { get; set; }
+        public Guid? Id { get; init; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public int? Age { get; set; }

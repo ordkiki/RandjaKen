@@ -31,8 +31,6 @@ namespace RanjaKen.Infrastructure.Persistences.Repositories
             _dbSet.Remove(result);
             return true;
         }
-
-        
         
         public async Task<T> UpdateAsync(Guid? id, T entity)
         {
@@ -43,28 +41,18 @@ namespace RanjaKen.Infrastructure.Persistences.Repositories
             existingEntity.UpdatedAt = DateTime.UtcNow;
             return existingEntity;
         }
-
-
-        
         public async Task SaveChangeAsync()
         {
             try
             {
                 await _db.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException ex)
+            catch (Exception ex) when (ex is DbUpdateConcurrencyException or DbUpdateException)
             {
-                throw new ApiException($"error saving data : {ex}", 400, false);
-            }
-            catch (DbUpdateException ex)
-            {
-                throw new ApiException($"error saving data : {ex.Message}", 400, false);
-            }
-            catch (Exception ex)
-            {
-                throw new ApiException($" {ex.Message}", 400, false);
+                throw new ApiException($"Error saving data: {ex.Message}", 400, false);
             }
         }
+
 
         public async Task<(IEnumerable<T> Data, long Total, int AllPage)> GetAllAsync(
             Expression<Func<T, bool>>? filterExpression, 
@@ -87,19 +75,15 @@ namespace RanjaKen.Infrastructure.Persistences.Repositories
                 query = orderBy(query);
             }
             long total = await query.LongCountAsync();
-            totalPage = ((int)total / limit) + 1 ?? 0;
+            int allPage = (limit.HasValue && limit.Value > 0)? (int)Math.Ceiling((double)total / limit.Value): 1;
 
-            if (limit.HasValue && page.HasValue)
+            if (limit.HasValue && page.HasValue && limit.Value > 0)
             {
                 int skip = (page.Value - 1) * limit.Value;
                 query = query.Skip(skip).Take(limit.Value);
             }
-
-            List<T> data = await query.ToListAsync();
-            return (data, total, (int)totalPage);
+            return (await query.ToListAsync(), total, allPage);
         }
-
-
 
         public async Task<T?> GetByAsync(Guid? EntityId, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include, Expression<Func<T, T>>? projection = null)
         {
@@ -135,42 +119,7 @@ namespace RanjaKen.Infrastructure.Persistences.Repositories
                 return null;
             }
         }
-
-        public async Task<Team> GetByEmailAsync(string? email, Func<IQueryable<Team>, IIncludableQueryable<Team, object>>? include, Expression<Func<Team, Team>>? projection = null)
-        {
-            try
-            {
-                IQueryable<Team> query = _db.Set<Team>();
-                if (include != null)
-                {
-                    query = include(query);
-                }
-                if (projection is null)
-                {
-                    Team? result = await query.FirstOrDefaultAsync(e => e.EmailAdress == email);
-                    return result;
-                }
-                else
-                {
-                    Team? result = await _db.Set<Team>()
-                        .Where(e => e.EmailAdress == email)
-                        .Select(projection)
-                        .FirstOrDefaultAsync();
-                    return result;
-                }
-            }
-            catch (ArgumentNullException ex)
-            {
-                Console.WriteLine($"Erreur Null : {ex.Message}");
-                return null;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Erreur : {ex.Message}");
-                return null;
-            }
-        }
-
+        
         public async Task<List<T>> CreateManyAsync(List<T>? entities)
         {
             if (entities == null || !entities.Any())

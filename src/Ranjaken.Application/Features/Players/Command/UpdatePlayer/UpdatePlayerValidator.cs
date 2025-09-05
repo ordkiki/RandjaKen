@@ -1,16 +1,11 @@
 ﻿using FluentValidation;
 using Ranjaken.Application.Features.Users.Command.UpdatePlayer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ranjaken.Application.Features.Players.Command.UpdatePlayer
 {
     public class UpdatePlayerValidator : AbstractValidator<UpdatePlayercommand>
     {
-        private readonly string[] allowedContentTypes = new[] { "image/jpeg", "image/png", "image/jpg", "image/gif", "image/jfif" };
+        private readonly string[] allowedContentTypes = ["image/jpeg", "image/png", "image/jpg", "image/gif", "image/jfif"];
         private const long maxSizeInBytes = 5 * 1024 * 1024;
         public UpdatePlayerValidator()
         {
@@ -34,6 +29,5 @@ namespace Ranjaken.Application.Features.Players.Command.UpdatePlayer
                 .Must(file => file != null && file.Length <= maxSizeInBytes).WithMessage("Le fichier ne doit pas dépasser 5 Mo.")
             );
         }
-
     }
 }

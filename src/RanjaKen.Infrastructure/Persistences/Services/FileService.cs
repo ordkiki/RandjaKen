@@ -9,13 +9,21 @@ namespace RanjaKen.Infrastructure.Persistences.Services
     {
         public Task<bool> DeleteAsync(IFormFile? file, string path)
         {
-            
-            return null;
+            if (file == null || string.IsNullOrWhiteSpace(path))
+                return Task.FromResult(false);
+
+            string fullPath = Path.Combine(path, file.FileName);
+
+            if (!System.IO.File.Exists(fullPath))
+                return Task.FromResult(false);
+
+            System.IO.File.Delete(fullPath);
+            return Task.FromResult(true);
         }
 
         public async Task<Resource> UploadAsync(IFormFile file, string folder)
         {
-            if (file == null || file == null || file.Length == 0)
+            if (file == null || file.Length == 0)
                 return null;    
             string? basePath = configuration.GetSection("FileStorage:BasePath").Value;
 
@@ -40,7 +48,7 @@ namespace RanjaKen.Infrastructure.Persistences.Services
                 Url: Path.Combine("/", folder, filename).Replace("\\", "/"),
                 ContentType: contentType,
                 Extension: extension, 
-                size: 4*4* 1024
+                size: (int)file.Length
             );
         }
     }

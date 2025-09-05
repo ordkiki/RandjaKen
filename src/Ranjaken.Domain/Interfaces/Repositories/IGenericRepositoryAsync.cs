@@ -12,7 +12,6 @@ namespace Ranjaken.Domain.Interfaces.Repositories
 {
     public interface IGenericRepositoryAsync<T> where T : Entity
     {
-        public Task<Team> GetByEmailAsync(string? email, Func<IQueryable<Team>, IIncludableQueryable<Team, object>>? include, Expression<Func<Team, Team>>? projection = null);
         public Task<T> CreateAsync(T? entity);
         public Task<List<T>> CreateManyAsync(List<T>? entities);
         public Task<bool> DeleteAsync(Guid? id);

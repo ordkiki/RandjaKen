@@ -1,6 +1,4 @@
 ﻿using MediatR;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
 using Ranjaken.Application.Dtos.PlayerDto;
 using Ranjaken.Application.Mappers;
 using Ranjaken.Domain.Entities;
@@ -13,11 +11,9 @@ namespace Ranjaken.Application.Features.Users.Command.CreatePlayer
 {
     public class CreatePlayerCommandHandler(IGenericRepositoryAsync<Player> _repo, IGenericRepositoryAsync<Team> _repoTeam, IFileService _file) : IRequestHandler<CreatePlayerCommand, PlayerDto>
     {
-
         public async Task<PlayerDto> Handle(CreatePlayerCommand request, CancellationToken cancellationToken)
         {
             Expression<Func<Team, Team>>? projection = team => new Team {Id = team.Id, Name = team.Name};
-
             Team team = await _repoTeam.GetByAsync(request.TeamId, null, projection) ?? throw new ApiException("No team found with this Id", 400, false);
 
             Player player = new()
@@ -29,13 +25,11 @@ namespace Ranjaken.Application.Features.Users.Command.CreatePlayer
                 Size = request?.Size,
                 Position = request?.Position,
                 TeamId = request?.TeamId,
+                Avatar = await _file.UploadAsync(request?.Avatar, "Player") ?? throw new ApiException("player must have a profil", 400, false)
             };
-            player.Avatar = await _file.UploadAsync(request?.Avatar, "Player") ?? throw new ApiException("avatar must be required", 400, false);
             await _repo.CreateAsync(player);
             await _repo.SaveChangeAsync();
-            PlayerDto result = player.ToDto();
-            result.TeamName = team.Name;
-            return result;
+            return player.ToDto();
         }
     }
 }

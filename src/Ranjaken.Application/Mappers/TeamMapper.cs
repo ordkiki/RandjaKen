@@ -2,11 +2,6 @@
 using Ranjaken.Application.Dtos.PlayerDto;
 using Ranjaken.Application.Features.Teams.Query.GetBy;
 using Ranjaken.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ranjaken.Application.Mappers
 {
@@ -38,7 +33,7 @@ namespace Ranjaken.Application.Mappers
                 Logo = team.Logo,
                 EmailAdress = team.EmailAdress,
                 PhoneNumber = team?.PhoneNumber,
-                Status = team.Status.ToString()
+                Status = team?.Status.ToString()
             });
         }
 

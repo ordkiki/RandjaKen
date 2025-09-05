@@ -1,11 +1,6 @@
 ﻿using MediatR;
 using Ranjaken.Domain.Entities;
 using Ranjaken.Domain.Interfaces.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ranjaken.Application.Features.Users.Command.DeletePlayer
 {

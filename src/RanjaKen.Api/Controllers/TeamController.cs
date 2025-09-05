@@ -1,37 +1,25 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Ranjaken.Application.Dtos;
-using Ranjaken.Application.Dtos.PlayerDto;
-using Ranjaken.Application.Features.Players.Query.GetPlayerById;
 using Ranjaken.Application.Features.Teams.Command.CreateTeam;
 using Ranjaken.Application.Features.Teams.Command.DeleteTeam;
 using Ranjaken.Application.Features.Teams.Command.UpdtateTeam;
 using Ranjaken.Application.Features.Teams.Query.GetAllTeam;
 using Ranjaken.Application.Features.Teams.Query.GetBy;
-using Ranjaken.Application.Features.Users.Command.CreatePlayer;
-using Ranjaken.Application.Features.Users.Command.DeletePlayer;
-using Ranjaken.Application.Features.Users.Query.GetAllPlayer;
 using RanjaKen.Api.Model;
 
 namespace RanjaKen.Api.Controllers
 {
     [ApiController]
-    [Route("api/[controller]/")]
+    [Route("api/v{version:apiVersion}/[controller]")]
+    [ApiVersion("1.0")]
     public class TeamController(IMediator _mediator) : ControllerBase
     {
         #region Create
         [HttpPost]
-        public async Task<IActionResult> Create([FromForm] CreateTeamRequest request)
+        public async Task<IActionResult> Create([FromForm] CreateTeamCommand request)
         {
-            TeamDto result = await _mediator.Send(new CreateTeamCommand
-            {
-                Name = request.Name,
-                Slogan = request.Slogan,
-                Bio = request.Bio,
-                EmailAdress = request.EmailAdress,
-                PhoneNumber = request.PhoneNumber,
-                Attachement = request.Logo
-            });
+            TeamDto result = await _mediator.Send(request);
             return Ok(new ApiResponse<TeamDto>
             {
                 Success = true,
@@ -42,7 +30,6 @@ namespace RanjaKen.Api.Controllers
             });
         }
         #endregion
-
 
         #region Update
         [HttpPut("{TeamId}")]
@@ -87,21 +74,22 @@ namespace RanjaKen.Api.Controllers
 
         #region GetAll
         [HttpGet]
-        public async Task<IActionResult> GetMany([FromQuery] GetAllTeamQuery? request)
+        public async Task<IActionResult> GetMany([FromQuery] GetAllTeamQuery request)
         {
-            GetAllTeamResponse result = await _mediator.Send(new GetAllTeamQuery()
-            {
-                Search = request?.Search,
-                Page = request.Page,
-                Limit = request?.Limit
-            });
-            return Ok(new ApiResponse<List<TeamDto>>
+            GetAllTeamResponse? result = await _mediator.Send(request);
+            return Ok(new ApiResponse<IEnumerable<TeamDto>>
             {
                 Success = true,
                 Code = StatusCodes.Status200OK,
-                Data = result.Data.ToList(),
+                Data = result.Data,
                 Message = "retrieved with success",
-                Meta = null
+                Meta = new Meta
+                {
+                    Limit = request.Limit,
+                    Page = request.Page,
+                    Total = result.Total,
+                    TotalPage = result.TotalPage
+                }
             });
         }
         #endregion

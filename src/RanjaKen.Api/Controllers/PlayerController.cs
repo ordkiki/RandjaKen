@@ -12,24 +12,16 @@ namespace RanjaKen.Api.Controllers
 {
     
     [ApiController]
-    [Route("api/[controller]/")]
+    [Route("api/v{version:apiVersion}/[controller]")]
+    [ApiVersion("1.0")]
     public class PlayerController(IMediator _mediator) : ControllerBase
     {
         #region Create
         [HttpPost]
         public async Task<IActionResult> Create([FromForm] CreatePlayerCommand request)
         {
-            PlayerDto result = await _mediator.Send(new CreatePlayerCommand
-            {
-                LastName = request.LastName,
-                FirstName = request.FirstName,
-                Pseudo = request.Pseudo,
-                Age = request.Age,
-                Size = request.Size,
-                Avatar = request.Avatar,
-                TeamId = request.TeamId,
-                Position = request.Position,
-            });
+            PlayerDto result = await _mediator.Send(request);
+           
             return Ok(new ApiResponse<PlayerDto>
             {
                 Success = true,
@@ -59,7 +51,7 @@ namespace RanjaKen.Api.Controllers
             return Ok(new ApiResponse<PlayerDto>
             {
                 Success = true,
-                Code = StatusCodes.Status201Created,
+                Code = StatusCodes.Status200OK,
                 Data = result,
                 Message = "created with success",
                 Meta = null
@@ -69,7 +61,7 @@ namespace RanjaKen.Api.Controllers
 
         #region Delete
         [HttpDelete]
-        public async Task<IActionResult> Delete([FromQuery] Guid? PlayerId)
+        public async Task<IActionResult> Delete([FromQuery] Guid PlayerId)
         {
             await _mediator.Send(new DeletePlayerCommand(PlayerId));
             return Ok(new ApiResponse<PlayerDto>
@@ -77,7 +69,7 @@ namespace RanjaKen.Api.Controllers
                 Success = true,
                 Code = StatusCodes.Status200OK,
                 Data = null,
-                Message = "Delete with  success",
+                Message = "Delete with success",
                 Meta = null
             });
         }
@@ -85,21 +77,22 @@ namespace RanjaKen.Api.Controllers
 
         #region GetAll
         [HttpGet]
-        public async Task<IActionResult> GetMany([FromQuery] GetAllPlayerQuery? request)
+        public async Task<IActionResult> GetMany([FromQuery] GetAllPlayerQuery request)
         {
-            GetAllPlayerResponse result = await _mediator.Send(new GetAllPlayerQuery()
-            {
-                Search = request?.Search,
-                Page = request.Page,
-                Limit = request?.Limit
-            });
-            return Ok(new ApiResponse<List<PlayerDto>>
+            GetAllPlayerResponse result = await _mediator.Send(request);
+            return Ok(new ApiResponse<IEnumerable<PlayerDto>>
             {
                 Success = true,
                 Code = StatusCodes.Status200OK,
-                Data = result.Data.ToList(),
+                Data = result.Data,
                 Message = "retrieved with success",
-                Meta = null
+                Meta = new Meta
+                {
+                    Limit = request.Limit,
+                    Page = request.Page,
+                    Total = result.Total,
+                    TotalPage = result.TotalPage
+                }
             });
         }
         #endregion
@@ -108,13 +101,13 @@ namespace RanjaKen.Api.Controllers
         [HttpGet("{Id}")]
         public async Task<IActionResult> GetOne([FromRoute] Guid? Id)
         {
-            var result = await _mediator.Send(new GetPlayerByIdQuery(Id));
+            PlayerDto result = await _mediator.Send(new GetPlayerByIdQuery(Id));
             return Ok(new ApiResponse<PlayerDto>
             {
                 Success = true,
                 Code = StatusCodes.Status200OK,
                 Data = result,
-                Message = "retrieved with success",
+                Message = result == null ? "no player found" : "retrieved with success",
                 Meta = null
             });
         }

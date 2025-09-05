@@ -19,6 +19,7 @@ namespace Ranjaken.Application.Features.Users.Command.UpdatePlayer
             player.Size = request?.Size ?? player.Size;
             player.Avatar = request?.Avatar != null ? await _file.UploadAsync(request?.Avatar, "Avatar") : player.Avatar;
             player.Position = request?.Position ?? player.Position;
+  
             Player updatedPlayer = await _repo.UpdateAsync(request?.Id, player);
             await _repo.SaveChangeAsync();
 

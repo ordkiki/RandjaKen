@@ -1,8 +1,10 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Ranjaken.Application.Commons.Extensions;
 using RanjaKen.Api.Middleware;
 using RanjaKen.Infrastructure.Commons.Extensions;
 using RanjaKen.Infrastructure.Contexts;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,7 +23,7 @@ builder.Services.AddCors(options =>
 });
 
 // Database
-builder.Services.AddDbContext<AppDbContext>(options =>
+builder.Services.AddDbContextPool<AppDbContext>(options =>
     options.UseNpgsql(
         builder.Configuration.GetConnectionString("DefaultConnection"),
         b => b.MigrationsAssembly("RanjaKen.Api")
@@ -37,8 +39,23 @@ builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
         options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+        options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
         options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
     });
+
+// 5. API Versioning
+builder.Services.AddApiVersioning(options =>
+{
+    options.DefaultApiVersion = new ApiVersion(1, 0); // v1.0 par défaut
+    options.AssumeDefaultVersionWhenUnspecified = true; // si pas précisé => v1
+    options.ReportApiVersions = true; // ajoute "api-supported-versions" dans la réponse
+});
+
+builder.Services.AddVersionedApiExplorer(options =>
+{
+    options.GroupNameFormat = "'v'VVV"; // format : v1, v2, ...
+    options.SubstituteApiVersionInUrl = true;
+});
 
 // Swagger
 builder.Services.AddEndpointsApiExplorer();
@@ -66,7 +83,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
-app.MapControllers();
 app.UseStaticFiles();
+app.MapControllers(); //Activation de la routage
 
 app.Run();

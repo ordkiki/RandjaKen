@@ -3,7 +3,6 @@ using Ranjaken.Domain.Enums;
 using Ranjaken.Domain.ValuesObject;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data;
 
 namespace Ranjaken.Domain.Entities
 {

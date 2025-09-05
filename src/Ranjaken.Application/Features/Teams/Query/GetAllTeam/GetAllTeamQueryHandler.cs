@@ -27,6 +27,10 @@ namespace Ranjaken.Application.Features.Teams.Query.GetAllTeam
                         team.Name.Contains(request.Search) ||
                         team.Slogan.Contains(request.Search)
                     )
+               )    
+               &&
+               (
+                    string.IsNullOrEmpty(request.Status) || (team.Status != null && team.Status.ToString().Contains(request.Status))
                )
             ;
 
