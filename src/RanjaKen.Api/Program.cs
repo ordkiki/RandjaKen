@@ -10,7 +10,7 @@ using System.Text.Json.Serialization;
 var builder = WebApplication.CreateBuilder(args);
 
 // CORS
-string corsName = builder.Configuration["Cors:Policy"]!;
+string corsName = builder.Configuration["Cors:Policy"];
 var corsOrigin = builder.Configuration.GetSection("Cors:Origin").Get<string[]>();
 builder.Services.AddCors(options =>
 {
@@ -18,6 +18,7 @@ builder.Services.AddCors(options =>
     {
         policy.WithOrigins(corsOrigin ?? Array.Empty<string>())
               .AllowAnyMethod()
+              .AllowCredentials()
               .AllowAnyHeader();
     });
 });
@@ -45,7 +46,7 @@ builder.Services.AddControllers()
 
 // 5. API Versioning
 builder.Services.AddApiVersioning(options =>
-{
+{ 
     options.DefaultApiVersion = new ApiVersion(1, 0); // v1.0 par défaut
     options.AssumeDefaultVersionWhenUnspecified = true; // si pas précisé => v1
     options.ReportApiVersions = true; // ajoute "api-supported-versions" dans la réponse
@@ -86,4 +87,4 @@ app.UseAuthorization();
 app.UseStaticFiles();
 app.MapControllers(); //Activation de la routage
 
-app.Run();
+app.Run("http://192.168.0.123:5555");

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Ranjaken.Application.Dtos;
 using Ranjaken.Application.Features.Teams.Command.CreateTeam;
 using Ranjaken.Application.Features.Teams.Command.DeleteTeam;
+using Ranjaken.Application.Features.Teams.Command.UpdateStatusTeam;
 using Ranjaken.Application.Features.Teams.Command.UpdtateTeam;
 using Ranjaken.Application.Features.Teams.Query.GetAllTeam;
 using Ranjaken.Application.Features.Teams.Query.GetBy;
@@ -55,6 +56,26 @@ namespace RanjaKen.Api.Controllers
             });
         }
         #endregion
+
+        #region Update
+        [HttpPut("Status/{TeamId}")]
+        public async Task<IActionResult> UpdateStatus([FromRoute] Guid? TeamId, [FromForm] UpdateStatusTeamCommand request)
+        {
+            TeamDto result = await _mediator.Send(new UpdateStatusTeamCommand
+            {
+                Id = request.Id
+            });
+            return Ok(new ApiResponse<TeamDto>
+            {
+                Success = true,
+                Code = StatusCodes.Status200OK,
+                Data = result,
+                Message = "update status with success",
+                Meta = null
+            });
+        }
+        #endregion
+
 
         #region Delete
         [HttpDelete]
