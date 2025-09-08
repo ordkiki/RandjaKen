@@ -15,6 +15,7 @@ namespace Ranjaken.Domain.Entities
         public int? Age { get; set; }
         [DisplayName("text")]
         public PlayerPosition? Position {get; set;}
+        public string? Idole {get; set;}
         public Resource? Avatar { get; set; }
         [ForeignKey(nameof(Team))]
         public Guid? TeamId { get; set; }

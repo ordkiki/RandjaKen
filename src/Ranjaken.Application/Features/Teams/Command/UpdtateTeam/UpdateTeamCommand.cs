@@ -9,10 +9,11 @@ namespace Ranjaken.Application.Features.Teams.Command.UpdtateTeam
     {
         public Guid? Id { get; set; }
         public string? Name { get; set; }
-        public string? EmailAdress { get; set; }
         public string? Slogan { get; set; }
         public string? Bio { get; set; }
+        public string? EmailAdress { get; set; }
         public string? PhoneNumber { get; set; }
+        public string[]? SocialMedia { get; set; }
         public string? Status { get; set; }
         public IFormFile? Logo { get; set; } = null;
     }

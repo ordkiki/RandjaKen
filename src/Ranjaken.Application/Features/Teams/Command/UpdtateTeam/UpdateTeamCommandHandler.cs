@@ -17,6 +17,7 @@ namespace Ranjaken.Application.Features.Teams.Command.UpdtateTeam
             team.Bio = request?.Bio ?? team.Bio;
             team.Slogan = request?.Slogan ?? team.Slogan;
             team.PhoneNumber = request?.PhoneNumber ?? team.PhoneNumber;
+            team.SocialMedia = request?.SocialMedia ?? team.SocialMedia;
             team.EmailAdress = request?.EmailAdress ?? team.EmailAdress;
             team.Status = team.Status;
             team.Logo = await _file.UploadAsync(request?.Logo, "Team_Logo") ?? team.Logo;

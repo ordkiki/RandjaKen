@@ -12,7 +12,7 @@ using RanjaKen.Infrastructure.Contexts;
 namespace RanjaKen.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250907064444_RanjaKen")]
+    [Migration("20250908090458_RanjaKen")]
     partial class RanjaKen
     {
         /// <inheritdoc />
@@ -38,6 +38,9 @@ namespace RanjaKen.Api.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("FirstName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Idole")
                         .HasColumnType("text");
 
                     b.Property<string>("LastName")
@@ -93,6 +96,9 @@ namespace RanjaKen.Api.Migrations
 
                     b.Property<string>("Slogan")
                         .HasColumnType("text");
+
+                    b.PrimitiveCollection<string[]>("SocialMedia")
+                        .HasColumnType("text[]");
 
                     b.Property<int?>("Status")
                         .HasColumnType("integer");

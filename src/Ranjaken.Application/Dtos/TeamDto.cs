@@ -19,6 +19,7 @@ namespace Ranjaken.Application.Dtos
         public string? Slogan { get; init; }
         public string? Bio { get; init; }
         public string? PhoneNumber { get; init; }
+        public string[]? SocialMedia { get; set; }
         public string? Status { get; set; }
     }
 }

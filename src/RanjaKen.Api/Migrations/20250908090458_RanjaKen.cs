@@ -26,6 +26,7 @@ namespace RanjaKen.Api.Migrations
                     Slogan = table.Column<string>(type: "text", nullable: true),
                     Bio = table.Column<string>(type: "text", nullable: true),
                     PhoneNumber = table.Column<string>(type: "text", nullable: true),
+                    SocialMedia = table.Column<string[]>(type: "text[]", nullable: true),
                     Status = table.Column<int>(type: "integer", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
@@ -61,6 +62,7 @@ namespace RanjaKen.Api.Migrations
                     Size = table.Column<int>(type: "integer", nullable: true),
                     Age = table.Column<int>(type: "integer", nullable: true),
                     Position = table.Column<int>(type: "integer", nullable: true),
+                    Idole = table.Column<string>(type: "text", nullable: true),
                     Avatar_Name = table.Column<string>(type: "text", nullable: true),
                     Avatar_Url = table.Column<string>(type: "text", nullable: true),
                     Avatar_ContentType = table.Column<string>(type: "text", nullable: true),

@@ -13,6 +13,7 @@ namespace Ranjaken.Domain.Entities
         public string? Slogan { get; set; }
         public string? Bio { get; set; } = string.Empty;
         public string? PhoneNumber { get; set; }
+        public string[]? SocialMedia { get; set; }
         public virtual List<Player>? Players { get; set; }
         [DisplayName("text")]
         public InsriptionStatus? Status { get; set; }

@@ -18,6 +18,7 @@ namespace RanjaKen.Infrastructure.Commons.Extensions
             services.AddScoped(typeof(IGenericRepositoryAsync<>), typeof(GenericRepositoryAsync<>));
             services.AddScoped(typeof(IGenericEmailService<>), typeof(GenericEmailService<>));
             services.AddScoped(typeof(IFileService), typeof(FileService));
+            services.AddScoped(typeof(IExcelService), typeof(ExcelService));
             
             return services;
         }

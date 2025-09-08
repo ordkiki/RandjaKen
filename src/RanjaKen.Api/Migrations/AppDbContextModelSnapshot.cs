@@ -37,6 +37,9 @@ namespace RanjaKen.Api.Migrations
                     b.Property<string>("FirstName")
                         .HasColumnType("text");
 
+                    b.Property<string>("Idole")
+                        .HasColumnType("text");
+
                     b.Property<string>("LastName")
                         .HasColumnType("text");
 
@@ -90,6 +93,9 @@ namespace RanjaKen.Api.Migrations
 
                     b.Property<string>("Slogan")
                         .HasColumnType("text");
+
+                    b.PrimitiveCollection<string[]>("SocialMedia")
+                        .HasColumnType("text[]");
 
                     b.Property<int?>("Status")
                         .HasColumnType("integer");

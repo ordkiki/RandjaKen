@@ -22,6 +22,7 @@ namespace Ranjaken.Application.Features.Teams.Command.CreateTeam
                 Slogan = request?.Slogan,
                 PhoneNumber = request?.PhoneNumber,
                 EmailAdress = request?.EmailAdress,
+                SocialMedia = request?.SocialMedia,
                 Status = InsriptionStatus.PENDING,
                 Logo = await _file.UploadAsync(request?.Logo, "Logo") ?? null
             };

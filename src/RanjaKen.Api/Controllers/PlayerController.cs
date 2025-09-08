@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Ranjaken.Application.Dtos.PlayerDto;
+using Ranjaken.Application.Features.Players.Query;
 using Ranjaken.Application.Features.Players.Query.GetPlayerById;
 using Ranjaken.Application.Features.Users.Command.CreatePlayer;
 using Ranjaken.Application.Features.Users.Command.DeletePlayer;
@@ -47,6 +48,7 @@ namespace RanjaKen.Api.Controllers
                 Age = request.Age,
                 Size = request.Size,
                 Avatar = request.Avatar,
+                Idole = request.Idole,
                 Position = request.Position,
             });
             return Ok(new ApiResponse<PlayerDto>
@@ -76,6 +78,18 @@ namespace RanjaKen.Api.Controllers
         }
         #endregion
 
+
+        [HttpGet("export")]
+        public async Task<IActionResult> Export([FromQuery] string? search, [FromQuery] string? teamName)
+        {
+            var fileBytes = await _mediator.Send(new ExportExcelQuery
+            {
+                Search = search,
+                TeamName = teamName
+            });
+
+            return File(fileBytes,"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Players.xlsx");
+        }
         #region GetAll
         [HttpGet]
         public async Task<IActionResult> GetMany([FromQuery] GetAllPlayerQuery request)
