@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Ranjaken.Application.Dtos;
 using Ranjaken.Application.Features.Users.LoginUser;
+using Ranjaken.Domain.Exceptions;
 using RanjaKen.Api.Model;
 
 namespace RanjaKen.Api.Controllers
@@ -15,7 +16,7 @@ namespace RanjaKen.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> Login([FromForm] LoginUserCommand request)
         {
-            if (request == null) return BadRequest("Invalid request");
+            if (request == null) return BadRequest(new ApiException("Invalid request", 400, false));
             UserDto result = await _mediator.Send(request);
             return Ok(new ApiResponse<UserDto>
             {

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace RanjaKen.Api.Migrations
 {
     /// <inheritdoc />
-    public partial class RandjaKen : Migration
+    public partial class RanjaKen : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -24,7 +24,7 @@ namespace RanjaKen.Api.Migrations
                     Logo_size = table.Column<int>(type: "integer", nullable: true),
                     EmailAdress = table.Column<string>(type: "text", nullable: true),
                     Slogan = table.Column<string>(type: "text", nullable: true),
-                    Bio = table.Column<string>(type: "text", nullable: false),
+                    Bio = table.Column<string>(type: "text", nullable: true),
                     PhoneNumber = table.Column<string>(type: "text", nullable: true),
                     Status = table.Column<int>(type: "integer", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),

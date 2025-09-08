@@ -7,6 +7,7 @@ using Ranjaken.Application.Features.Teams.Command.UpdateStatusTeam;
 using Ranjaken.Application.Features.Teams.Command.UpdtateTeam;
 using Ranjaken.Application.Features.Teams.Query.GetAllTeam;
 using Ranjaken.Application.Features.Teams.Query.GetBy;
+using Ranjaken.Domain.Exceptions;
 using RanjaKen.Api.Model;
 
 namespace RanjaKen.Api.Controllers
@@ -21,6 +22,7 @@ namespace RanjaKen.Api.Controllers
         public async Task<IActionResult> Create([FromForm] CreateTeamCommand request)
         {
             TeamDto result = await _mediator.Send(request);
+            if (request == null) throw new ApiException("Invalid request", 400, false);
             return Ok(new ApiResponse<TeamDto>
             {
                 Success = true,
@@ -59,11 +61,11 @@ namespace RanjaKen.Api.Controllers
 
         #region Update
         [HttpPut("Status/{TeamId}")]
-        public async Task<IActionResult> UpdateStatus([FromRoute] Guid? TeamId, [FromForm] UpdateStatusTeamCommand request)
+        public async Task<IActionResult> UpdateStatus([FromRoute] Guid TeamId, [FromForm] UpdateStatusTeamCommand request)
         {
             TeamDto result = await _mediator.Send(new UpdateStatusTeamCommand
             {
-                Id = request.Id
+                Id = TeamId
             });
             return Ok(new ApiResponse<TeamDto>
             {

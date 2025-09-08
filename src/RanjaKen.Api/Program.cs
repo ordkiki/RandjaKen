@@ -10,8 +10,8 @@ using System.Text.Json.Serialization;
 var builder = WebApplication.CreateBuilder(args);
 
 // CORS
-string corsName = builder.Configuration["Cors:Policy"];
-var corsOrigin = builder.Configuration.GetSection("Cors:Origin").Get<string[]>();
+string? corsName = builder.Configuration["Cors:Policy"];
+string []? corsOrigin = builder.Configuration.GetSection("Cors:Origin").Get<string[]>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(corsName, policy =>
@@ -88,3 +88,4 @@ app.UseStaticFiles();
 app.MapControllers(); //Activation de la routage
 
 app.Run("http://192.168.0.123:5555");
+//app.Run();

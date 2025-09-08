@@ -6,6 +6,7 @@ using Ranjaken.Application.Features.Users.Command.CreatePlayer;
 using Ranjaken.Application.Features.Users.Command.DeletePlayer;
 using Ranjaken.Application.Features.Users.Command.UpdatePlayer;
 using Ranjaken.Application.Features.Users.Query.GetAllPlayer;
+using Ranjaken.Domain.Exceptions;
 using RanjaKen.Api.Model;
 
 namespace RanjaKen.Api.Controllers
@@ -20,8 +21,8 @@ namespace RanjaKen.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromForm] CreatePlayerCommand request)
         {
+            if (request == null) throw new ApiException("Invalid request", 400, false);
             PlayerDto result = await _mediator.Send(request);
-           
             return Ok(new ApiResponse<PlayerDto>
             {
                 Success = true,
