@@ -21,6 +21,7 @@ namespace Ranjaken.Application.Features.Users.Command.CreatePlayer
                 FirstName = request?.FirstName?.ToUpper(),
                 LastName = request?.LastName,
                 Pseudo = request?.Pseudo,
+                Idole = request?.Idole,
                 Age = request?.Age,
                 Size = request?.Size,
                 Position = request?.Position,

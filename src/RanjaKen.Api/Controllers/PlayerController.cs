@@ -82,7 +82,7 @@ namespace RanjaKen.Api.Controllers
         [HttpGet("export")]
         public async Task<IActionResult> Export([FromQuery] string? search, [FromQuery] string? teamName)
         {
-            var fileBytes = await _mediator.Send(new ExportExcelQuery
+            byte[]? fileBytes = await _mediator.Send(new ExportExcelQuery
             {
                 Search = search,
                 TeamName = teamName

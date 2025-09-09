@@ -10,17 +10,14 @@ namespace Ranjaken.Application.Features.Players.Command.UpdatePlayer
         public UpdatePlayerValidator()
         {
             RuleFor(x => x.FirstName)
-                   .NotEmpty().WithMessage("First name is required.")
                    .MaximumLength(50).WithMessage("First name must not exceed 50 characters.");
             RuleFor(x => x.Pseudo)
-                .NotEmpty().WithMessage("Pseudo  is required.")
                 .MaximumLength(50).WithMessage("Pseudo  must not exceed 50 characters.");
             RuleFor(x => x.LastName)
-                .NotEmpty().WithMessage("First name is required.")
                 .MaximumLength(50).WithMessage("First name must not exceed 50 characters.");
-            RuleFor(x => x.Age).NotEmpty().WithMessage("Age is required.")
+            RuleFor(x => x.Age)
                 .InclusiveBetween(8, 35).WithMessage("Age must be between 5 and 50.");
-            RuleFor(x => x.Size).NotEmpty().WithMessage("Age is required.")
+            RuleFor(x => x.Size)
                 .InclusiveBetween(0, 350).WithMessage("Size must be between 0 and 350cm.");
 
             When(x => x.Avatar != null, () => RuleFor(x => x.Avatar)

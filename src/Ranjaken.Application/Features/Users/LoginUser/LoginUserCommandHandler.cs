@@ -10,9 +10,9 @@ namespace Ranjaken.Application.Features.Users.LoginUser
     {
         public async Task<UserDto> Handle(LoginUserCommand request, CancellationToken cancellationToken)
         {
-            User user = await _repo.GetByEmailAsync(request.EmailAdress, null) ?? throw new ExistingEntityException("you have not an access to connect as admin", 400, false);
+            User? user = await _repo.GetByEmailAsync(request.EmailAdress, null) ?? throw new ApiException("you have not an access to the page admin", 400, false);
 
-            if (user.Password != request.Password) throw new Exception("Invalid credentials");
+            if (user.Password != request.Password) throw new ApiException("Invalid credentials", 400 ,false);
             return new UserDto
             {
                 UserEmail = user.EmailAdress,

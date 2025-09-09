@@ -15,6 +15,7 @@ namespace Ranjaken.Application.Mappers
                 Name = team.Name,
                 PhoneNumber = team.PhoneNumber,
                 EmailAdress = team.EmailAdress,
+                SocialMedia = team.SocialMedia ?? null,
                 Logo = team.Logo,
                 Slogan = team.Slogan,
                 Bio = team.Bio,
@@ -32,6 +33,7 @@ namespace Ranjaken.Application.Mappers
                 Bio = team.Bio,
                 Logo = team.Logo,
                 EmailAdress = team.EmailAdress,
+                SocialMedia = team.SocialMedia ?? null,
                 PhoneNumber = team?.PhoneNumber,
                 Status = team?.Status.ToString()
             });

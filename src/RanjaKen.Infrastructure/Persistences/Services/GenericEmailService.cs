@@ -28,13 +28,13 @@ namespace RanjaKen.Infrastructure.Persistences.Services
                 }
                 if (projection is null)
                 {
-                    T? result = await query.FirstOrDefaultAsync(e => e.EmailAdress == email);
+                    T? result = await query.FirstOrDefaultAsync(e => e.EmailAdress.ToLower() == email.ToLower());
                     return result;
                 }
                 else
                 {
                     T? result = await _db.Set<T>()
-                        .Where(e => e.EmailAdress == email)
+                        .Where(e => e.EmailAdress.ToLower() == email.ToLower())
                         .Select(projection)
                         .FirstOrDefaultAsync();
                     return result;

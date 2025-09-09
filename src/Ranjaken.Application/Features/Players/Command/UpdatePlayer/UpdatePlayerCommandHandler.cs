@@ -15,6 +15,7 @@ namespace Ranjaken.Application.Features.Users.Command.UpdatePlayer
             player.LastName = request?.LastName ?? player.LastName;
             player.FirstName = request?.FirstName ?? player.FirstName;
             player.Pseudo = request?.Pseudo ?? player.Pseudo;   
+            player.Idole = request?.Idole ?? player.Idole;   
             player.Age = request?.Age ?? player.Age;
             player.Size = request?.Size ?? player.Size;
             player.Avatar = request?.Avatar != null ? await _file.UploadAsync(request?.Avatar, "Avatar") : player.Avatar;

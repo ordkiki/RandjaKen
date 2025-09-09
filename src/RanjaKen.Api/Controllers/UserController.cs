@@ -12,11 +12,11 @@ namespace RanjaKen.Api.Controllers
     [ApiVersion("1.0")]
     public class UserController(IMediator _mediator) : ControllerBase
     {
-        #region Create
+        #region Cre 
         [HttpGet]
-        public async Task<IActionResult> Login([FromForm] LoginUserCommand request)
+        public async Task<IActionResult> Login([FromQuery] LoginUserCommand request)
         {
-            if (request == null) return BadRequest(new ApiException("Invalid request", 400, false));
+            //if (request == null) return BadRequest(new ApiException("Invalid request", 400, false));
             UserDto result = await _mediator.Send(request);
             return Ok(new ApiResponse<UserDto>
             {
