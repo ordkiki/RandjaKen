@@ -5,7 +5,7 @@ namespace Ranjaken.Application.Features.Players.Command.UpdatePlayer
 {
     public class UpdatePlayerValidator : AbstractValidator<UpdatePlayercommand>
     {
-        private readonly string[] allowedContentTypes = ["image/jpeg", "image/png", "image/jpg", "image/gif", "image/jfif"];
+        private readonly string[] allowedContentTypes = ["image/jpeg", "image/webp  ", "image/png", "image/jpg", "image/gif", "image/jfif"];
         private const long maxSizeInBytes = 5 * 1024 * 1024;
         public UpdatePlayerValidator()
         {

@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36301.6
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ranjaken.Domain", "Ranjaken.Domain\Ranjaken.Domain.csproj", "{7547343D-F5D6-4D54-8861-1EA26075899D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RanjaKen.Domain", "Ranjaken.Domain\RanjaKen.Domain.csproj", "{7547343D-F5D6-4D54-8861-1EA26075899D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ranjaken.Application", "Ranjaken.Application\Ranjaken.Application.csproj", "{72ED43FE-F6B1-4A54-A45F-9FAAE1A9F1A8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RanjaKen.Application", "Ranjaken.Application\RanjaKen.Application.csproj", "{72ED43FE-F6B1-4A54-A45F-9FAAE1A9F1A8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RanjaKen.Api", "RanjaKen.Api\RanjaKen.Api.csproj", "{D77CDB74-7950-4B40-AE26-1929C8FAA0C5}"
 EndProject

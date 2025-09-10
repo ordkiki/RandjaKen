@@ -72,20 +72,21 @@ app.UseMiddleware<ExceptionHandling>();
 
 app.UseCors(corsName);
 
-if (app.Environment.IsDevelopment())
-{
+//if (app.Environment.IsDevelopment())
+//{
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "RanjaKen API V1");
         c.RoutePrefix = "swagger";// swagger à la racine
     });
-}
+//}
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.UseStaticFiles();
 app.MapControllers(); //Activation de la routage
 
-app.Run("http://192.168.0.123:5555");
-//app.Run();
+//app.Run("http://192.168.0.123:5555");
+app.Run();
+  
