@@ -4,7 +4,7 @@ namespace Ranjaken.Application.Features.Users.Command.CreatePlayer
 {
     public class CreatePlayerValidator : AbstractValidator<CreatePlayerCommand>
     {
-        private readonly string[] allowedContentTypes = ["image/jpeg", "image/webp", "image/png", "image/jpg", "image/gif", "image/jfif"];
+        private readonly string[] allowedContentTypes = ["image/jpeg", "image/png", "image/jpg", "image/webp", "image/gif", "image/jfif"];
         private const long maxSizeInBytes = 5 * 1024 * 1024;
 
         public CreatePlayerValidator()

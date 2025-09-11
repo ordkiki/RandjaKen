@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Ranjaken.Application\RanjaKen.Application.csproj" />
+    <ProjectReference Include="..\Ranjaken.Application\Ranjaken.Application.csproj" />
   </ItemGroup>
 
 </Project>

@@ -19,8 +19,8 @@ namespace Ranjaken.Application.Features.Teams.Command.CreateTeam
                 .MinimumLength(10).WithMessage("Telephone must be exced 10 characters.")
                 .MaximumLength(15).WithMessage("Telephone must be exced 10 characters.");
             //RuleFor(x => x.Status).IsInEnum().WithMessage("Status must be in enum, eg : PENDING, APPROVED");
-            RuleFor(x => x.Slogan).MaximumLength(150).WithMessage("\"Slogan can not exceed 150 characters\"");
-            RuleFor(x => x.Bio).MaximumLength(500).WithMessage("Bio can not exceed 500 characters");
+            RuleFor(x => x.Slogan).MaximumLength(5000).WithMessage("\"Slogan can not exceed 5000 characters\"");
+            RuleFor(x => x.Bio).MaximumLength(5000).WithMessage("Bio can not exceed 5000 characters");
         }
     }
 }

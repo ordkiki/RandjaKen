@@ -86,7 +86,13 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 app.UseStaticFiles();
 app.MapControllers(); //Activation de la routage
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+    // Appliquer automatiquement les migrations si la base n'existe pas
+    dbContext.Database.Migrate();
+}
 
 //app.Run("http://192.168.0.123:5555");
 app.Run();
-  

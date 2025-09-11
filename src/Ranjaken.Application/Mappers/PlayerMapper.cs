@@ -1,5 +1,4 @@
-﻿using Ranjaken.Application.Dtos;
-using Ranjaken.Application.Dtos.PlayerDto;
+﻿using Ranjaken.Application.Dtos.PlayerDto;
 using Ranjaken.Domain.Entities;
 
 namespace Ranjaken.Application.Mappers
