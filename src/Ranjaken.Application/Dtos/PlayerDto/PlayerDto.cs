@@ -12,5 +12,6 @@ namespace Ranjaken.Application.Dtos.PlayerDto
         public int? Age { get; set; }
         public string? Position { get; set; }
         public string? TeamName { get; set; }
+        public Guid? TeamId { get; set; }
     }
 }

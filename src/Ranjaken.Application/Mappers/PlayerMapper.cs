@@ -16,6 +16,7 @@ namespace Ranjaken.Application.Mappers
             PlayerDto.Avatar = user.Avatar;
             PlayerDto.Position = user.Position.ToString();
             PlayerDto.TeamName = user.Team?.Name;
+            PlayerDto.TeamId = user.TeamId;
             return PlayerDto;
         }
 
@@ -30,7 +31,8 @@ namespace Ranjaken.Application.Mappers
                     Avatar = player.Avatar,
                     Size = player.Size,
                     Position = player.Position.ToString(),
-                    TeamName = player.Team?.Name
+                    TeamName = player.Team?.Name,
+                    TeamId = player.Team.Id  
                 });
         }
     }
