@@ -6,11 +6,12 @@ using RanjaKen.Infrastructure.Commons.Extensions;
 using RanjaKen.Infrastructure.Contexts;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // CORS
-string? corsName = builder.Configuration["Cors:Policy"];
+string corsName = builder.Configuration["Cors:Policy"] ?? "Ranjaken";
 string []? corsOrigin = builder.Configuration.GetSection("Cors:Origin").Get<string[]>();
 builder.Services.AddCors(options =>
 {
@@ -63,6 +64,14 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.EnableAnnotations();
+
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Version = "v1",
+        Title = "RanjaKen API",
+        Description = "API documentation for RanjaKen"
+    });
+    c.SupportNonNullableReferenceTypes();
 });
 
 var app = builder.Build();
@@ -72,15 +81,15 @@ app.UseMiddleware<ExceptionHandling>();
 
 app.UseCors(corsName);
 
-//if (app.Environment.IsDevelopment())
-//{
-    app.UseSwagger();
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger(); 
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "RanjaKen API V1");
-        c.RoutePrefix = "swagger";// swagger à la racine
+        c.RoutePrefix = String.Empty;// swagger à la racine
     });
-//}
+}
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
