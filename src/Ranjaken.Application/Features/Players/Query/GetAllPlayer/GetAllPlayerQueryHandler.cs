@@ -8,6 +8,14 @@ namespace Ranjaken.Application.Features.Users.Query.GetAllPlayer
 {
     public class GetAllPlayerQueryHandler(IGenericRepositoryAsync<Player> _repo) : IRequestHandler<GetAllPlayerQuery, GetAllPlayerResponse>
     {
+        public int CalculateAge(DateOnly? birthDate)
+        {
+            if (!birthDate.HasValue) return 0;
+            var today = DateOnly.FromDateTime(DateTime.Today);
+            int age = today.Year - birthDate.Value.Year;
+            if (today < birthDate.Value.AddYears(age)) age--;
+            return age;
+        }
         public async Task<GetAllPlayerResponse> Handle(GetAllPlayerQuery request, CancellationToken cancellationToken)
         {
             List<Expression<Func<Player, object>>> includes = [p => p.Team];
@@ -24,6 +32,19 @@ namespace Ranjaken.Application.Features.Users.Query.GetAllPlayer
                     string.IsNullOrEmpty(request.TeamName) ||
                     (
                         player.Team.Name != null && player.FirstName.Contains(request.TeamName)
+                    )
+                    &&
+
+                    (
+                        !request.Age.HasValue || (
+                        player.BirthDate.HasValue &&
+                        
+                        (DateTime.Today.Year - player.BirthDate.Value.Year -
+                            ((DateTime.Today.Month < player.BirthDate.Value.Month ||
+                             (DateTime.Today.Month == player.BirthDate.Value.Month &&
+                              DateTime.Today.Day < player.BirthDate.Value.Day)) ? 1 : 0)
+                        ) >= request.Age.Value
+        )
                     )
             );
 

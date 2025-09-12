@@ -6,6 +6,7 @@ namespace Ranjaken.Application.Features.Users.Query.GetAllPlayer
     {
         public GetAllPlayerValidator()
         {
+            RuleFor(x => x.Age).GreaterThan(0).WithMessage("filter Age must be greater than 0");
             RuleFor(x => x.Page)
                 .GreaterThan(0).WithMessage("Page number must be greater than 0.");
             RuleFor(x => x.Limit)
