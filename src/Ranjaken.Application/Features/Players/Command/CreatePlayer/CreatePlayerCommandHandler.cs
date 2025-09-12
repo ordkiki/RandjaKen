@@ -22,7 +22,7 @@ namespace Ranjaken.Application.Features.Users.Command.CreatePlayer
                 LastName = request?.LastName,
                 Pseudo = request?.Pseudo,
                 Idole = request?.Idole,
-                Age = request?.Age,
+                BirthDate = request?.BirthDate,
                 Size = request?.Size,
                 Position = request?.Position,
                 TeamId = request?.TeamId,

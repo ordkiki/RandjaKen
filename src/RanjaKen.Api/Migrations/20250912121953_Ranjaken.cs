@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace RanjaKen.Api.Migrations
 {
     /// <inheritdoc />
-    public partial class RanjaKen : Migration
+    public partial class Ranjaken : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -60,7 +60,7 @@ namespace RanjaKen.Api.Migrations
                     LastName = table.Column<string>(type: "text", nullable: true),
                     Pseudo = table.Column<string>(type: "text", nullable: true),
                     Size = table.Column<int>(type: "integer", nullable: true),
-                    Age = table.Column<int>(type: "integer", nullable: true),
+                    BirthDate = table.Column<DateOnly>(type: "date", nullable: true),
                     Position = table.Column<int>(type: "integer", nullable: true),
                     Idole = table.Column<string>(type: "text", nullable: true),
                     Avatar_Name = table.Column<string>(type: "text", nullable: true),

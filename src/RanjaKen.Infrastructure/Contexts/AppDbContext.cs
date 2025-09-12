@@ -41,7 +41,7 @@ namespace RanjaKen.Infrastructure.Contexts
                 entity.Property(p => p.FirstName).IsRequired(false);
                 entity.Property(p => p.LastName).IsRequired(false);
                 entity.Property(p => p.Pseudo).IsRequired(false);
-                entity.Property(p => p.Age).IsRequired(false);
+                entity.Property(p => p.BirthDate).IsRequired(false);
                 entity.Property(p => p.Size).IsRequired(false);
                 entity.Property(p => p.CreatedAt).IsRequired(false);
                 entity.Property(p => p.UpdatedAt).IsRequired(false);

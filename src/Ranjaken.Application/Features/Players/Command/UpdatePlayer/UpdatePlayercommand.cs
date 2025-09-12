@@ -10,7 +10,7 @@ namespace Ranjaken.Application.Features.Users.Command.UpdatePlayer
         public Guid? Id { get; init; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
-        public int? Age { get; set; }
+        public DateOnly? BirthDate { get; set; }
         public string? Pseudo { get; set; }
         public string? Idole { get; set; }
         public int? Size { get; set; }

@@ -10,7 +10,7 @@ namespace Ranjaken.Application.Mappers
             PlayerDto PlayerDto = new();
             PlayerDto.Id = user.Id;
             PlayerDto.Pseudo = user.Pseudo;
-            PlayerDto.Age = user.Age;
+            PlayerDto.BirthDate = user.BirthDate;
             PlayerDto.Idole = user.Idole;
             PlayerDto.Size = user.Size;
             PlayerDto.Avatar = user.Avatar;
@@ -27,7 +27,7 @@ namespace Ranjaken.Application.Mappers
                     Id = player.Id,
                     Pseudo = player.Pseudo,
                     Idole = player.Idole,
-                    Age = player.Age,
+                    BirthDate = player.BirthDate,
                     Avatar = player.Avatar,
                     Size = player.Size,
                     Position = player.Position.ToString(),

@@ -12,7 +12,7 @@ namespace Ranjaken.Domain.Entities
         public string? LastName { get; set; }
         public string? Pseudo { get; set; }
         public int? Size { get; set; }
-        public int? Age { get; set; }
+        public DateOnly? BirthDate { get; set; }
         [DisplayName("text")]
         public PlayerPosition? Position {get; set;}
         public string? Idole {get; set;}

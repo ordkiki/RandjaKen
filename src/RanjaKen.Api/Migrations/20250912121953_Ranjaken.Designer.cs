@@ -12,8 +12,8 @@ using RanjaKen.Infrastructure.Contexts;
 namespace RanjaKen.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250908090458_RanjaKen")]
-    partial class RanjaKen
+    [Migration("20250912121953_Ranjaken")]
+    partial class Ranjaken
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,8 +31,8 @@ namespace RanjaKen.Api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<int?>("Age")
-                        .HasColumnType("integer");
+                    b.Property<DateOnly?>("BirthDate")
+                        .HasColumnType("date");
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("timestamp with time zone");

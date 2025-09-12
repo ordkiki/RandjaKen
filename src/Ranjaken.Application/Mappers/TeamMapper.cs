@@ -52,7 +52,7 @@ namespace Ranjaken.Application.Mappers
                 Status = team.Status.ToString(),
                 Players = team.Players?.Select(b => new PlayerWithTeamDto{
                     Id = b.Id,
-                    Age = b.Age,
+                    BirthDate = b.BirthDate,
                     Position = b.Position.ToString(),
                     Pseudo = b.Pseudo,
                     Size = b.Size

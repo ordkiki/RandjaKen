@@ -45,7 +45,7 @@ namespace RanjaKen.Api.Controllers
                 LastName = request.LastName,
                 FirstName = request.FirstName,
                 Pseudo = request.Pseudo,
-                Age = request.Age,
+                BirthDate = request.BirthDate,
                 Size = request.Size,
                 Avatar = request.Avatar,
                 Idole = request.Idole,

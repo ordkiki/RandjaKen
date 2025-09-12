@@ -1,12 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Ranjaken.Application.Commons.Extensions;
-using RanjaKen.Api.Middleware;
 using RanjaKen.Infrastructure.Commons.Extensions;
 using RanjaKen.Infrastructure.Contexts;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Microsoft.OpenApi.Models;
+using RanjaKen.Api.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 

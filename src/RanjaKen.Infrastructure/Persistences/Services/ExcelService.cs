@@ -14,7 +14,7 @@ namespace RanjaKen.Infrastructure.Persistences.Services
             IXLWorksheet worksheet = workbook.Worksheets.Add("Players");
 
             // Header
-            string[] headers = { "FirstName", "LastName", "Age", "Idole","Pseudo", "Size", "Created At" };
+            string[] headers = { "FirstName", "LastName", "BirthDate", "Idole","Pseudo", "Size", "Created At" };
             for (int i = 0; i < headers.Length; i++)
             {
                 worksheet.Cell(1, i + 1).Value = headers[i];
@@ -26,7 +26,7 @@ namespace RanjaKen.Infrastructure.Persistences.Services
             {
                 worksheet.Cell(row, 1).Value = p.LastName;
                 worksheet.Cell(row, 2).Value = p.FirstName;
-                worksheet.Cell(row, 3).Value = p.Age;
+                worksheet.Cell(row, 3).Value = p.BirthDate.ToString();
                 worksheet.Cell(row, 4).Value = p.Idole;
                 worksheet.Cell(row, 5).Value = p.Pseudo;
                 worksheet.Cell(row, 6).Value = p.Size;
