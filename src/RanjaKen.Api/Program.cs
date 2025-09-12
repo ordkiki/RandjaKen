@@ -103,5 +103,5 @@ using (var scope = app.Services.CreateScope())
     dbContext.Database.Migrate();
 }
 
-app.Run("http://192.168.0.123:5555");
+app.Run("http://192.168.0.124:5555");
 //app.Run();

@@ -7,6 +7,7 @@ using Ranjaken.Application.Features.Teams.Command.UpdateStatusTeam;
 using Ranjaken.Application.Features.Teams.Command.UpdtateTeam;
 using Ranjaken.Application.Features.Teams.Query.GetAllTeam;
 using Ranjaken.Application.Features.Teams.Query.GetBy;
+using Ranjaken.Application.Features.Teams.Query.NewFolder;
 using Ranjaken.Domain.Exceptions;
 using RanjaKen.Api.Model;
 
@@ -132,6 +133,20 @@ namespace RanjaKen.Api.Controllers
             });
         }
         #endregion
+        [HttpGet("NumberOfApproved")]
+        public async Task<IActionResult> NumberOfInsrivedTeam()
+        {
+            int result = await _mediator.Send(new NumbreOfTeamApprovedQuery());
+
+            return Ok(new ApiResponse<int>
+            {
+                Success = true,
+                Code = StatusCodes.Status200OK,
+                Data = result,
+                Message = "retrieved with success",
+                Meta = null
+            });
+        }
 
     }
 }
