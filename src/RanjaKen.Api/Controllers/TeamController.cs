@@ -21,7 +21,7 @@ namespace RanjaKen.Api.Controllers
         #region Create
         [HttpPost]
         public async Task<IActionResult> Create([FromForm] CreateTeamCommand request)
-        {
+            {
             TeamDto result = await _mediator.Send(request);
             if (request == null) throw new ApiException("Invalid request", 400, false);
             return Ok(new ApiResponse<TeamDto>
