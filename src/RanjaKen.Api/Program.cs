@@ -81,15 +81,15 @@ app.UseMiddleware<ExceptionHandling>();
 
 app.UseCors(corsName);
 
-if (app.Environment.IsDevelopment())
-{
+//if (app.Environment.IsDevelopment())
+//{
     app.UseSwagger(); 
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "RanjaKen API V1");
         c.RoutePrefix = String.Empty;// swagger à la racine
     });
-}
+//}
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
@@ -103,5 +103,5 @@ using (var scope = app.Services.CreateScope())
     dbContext.Database.Migrate();
 }
 
-app.Run("http://192.168.0.124:5555");
-//app.Run();
+//app.Run("http://192.168.0.124:5555");
+app.Run();
