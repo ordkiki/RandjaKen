@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Ranjaken.Application.Dtos.PlayerDto;
 using Ranjaken.Application.Mappers;
 using Ranjaken.Domain.Entities;
@@ -14,7 +15,8 @@ namespace Ranjaken.Application.Features.Users.Command.UpdatePlayer
             Player player = await _repo.GetByAsync(request.Id, null);
             player.LastName = request?.LastName ?? player.LastName;
             player.FirstName = request?.FirstName ?? player.FirstName;
-            player.Pseudo = request?.Pseudo ?? player.Pseudo;   
+            player.Pseudo = request?.Pseudo ?? player.Pseudo;
+            player.Age = (request.BirthDate == null)?player.Age:(int)DateOnly.FromDateTime(DateTime.Today).Year - request.BirthDate.Value.Year;
             player.Idole = request?.Idole ?? player.Idole;   
             player.BirthDate = request?.BirthDate ?? player.BirthDate;
             player.Size = request?.Size ?? player.Size;

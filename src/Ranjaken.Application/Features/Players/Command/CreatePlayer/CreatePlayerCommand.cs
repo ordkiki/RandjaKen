@@ -10,7 +10,8 @@ namespace Ranjaken.Application.Features.Users.Command.CreatePlayer
     {
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
-        public DateOnly? BirthDate { get; set; }
+        public int? Age { get; set; }
+        public DateTime? BirthDate { get; set; }
         public string? Pseudo { get; set; }
         public string? Idole { get; set; }
         public int? Size { get; set; }

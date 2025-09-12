@@ -12,7 +12,7 @@ using RanjaKen.Infrastructure.Contexts;
 namespace RanjaKen.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250912121953_Ranjaken")]
+    [Migration("20250912145006_Ranjaken")]
     partial class Ranjaken
     {
         /// <inheritdoc />
@@ -31,8 +31,11 @@ namespace RanjaKen.Api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<DateOnly?>("BirthDate")
-                        .HasColumnType("date");
+                    b.Property<int?>("Age")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("BirthDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("timestamp with time zone");

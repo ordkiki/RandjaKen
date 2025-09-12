@@ -9,7 +9,7 @@ using System.Linq.Expressions;
 
 namespace Ranjaken.Application.Features.Users.Command.CreatePlayer
 {
-    public class CreatePlayerCommandHandler(IGenericRepositoryAsync<Player> _repo, IGenericRepositoryAsync<Team> _repoTeam, IFileService _file) : IRequestHandler<CreatePlayerCommand, PlayerDto>
+    public class CreatePlayerCommandHandler(IGenericRepositoryAsync<Player> _repo,  IGenericRepositoryAsync<Team> _repoTeam, IFileService _file) : IRequestHandler<CreatePlayerCommand, PlayerDto>
     {
         public async Task<PlayerDto> Handle(CreatePlayerCommand request, CancellationToken cancellationToken)
         {
@@ -23,6 +23,7 @@ namespace Ranjaken.Application.Features.Users.Command.CreatePlayer
                 Pseudo = request?.Pseudo,
                 Idole = request?.Idole,
                 BirthDate = request?.BirthDate,
+                Age = DateOnly.FromDateTime(DateTime.Today).Year - request.BirthDate.Value.Year,
                 Size = request?.Size,
                 Position = request?.Position,
                 TeamId = request?.TeamId,

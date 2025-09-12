@@ -20,17 +20,17 @@ namespace Ranjaken.Application.Features.Players.Command.UpdatePlayer
                 .MaximumLength(50).WithMessage("First name must not exceed 50 characters.");
             RuleFor(x => x.BirthDate).NotEmpty().WithMessage("BirthDate is required.");
             RuleFor(x => x.BirthDate)
-           .LessThanOrEqualTo(DateOnly.FromDateTime(DateTime.Today))
+           .LessThanOrEqualTo(DateTime.Today)
            .WithMessage("La date de naissance ne peut pas être dans le futur.");
 
             // Âge minimum (par ex. 15 ans)
             RuleFor(x => x.BirthDate)
-                .LessThanOrEqualTo(DateOnly.FromDateTime(DateTime.Today).AddYears(-MinAge))
+                .LessThanOrEqualTo(DateTime.Today.AddYears(-MinAge))
                 .WithMessage($"L'utilisateur doit avoir au moins {MinAge} ans.");
 
             // Âge maximum (par ex. 120 ans)
             RuleFor(x => x.BirthDate)
-                .GreaterThanOrEqualTo(DateOnly.FromDateTime(DateTime.Today).AddYears(-MaxAge))
+                .GreaterThanOrEqualTo(DateTime.Today.AddYears(-MaxAge))
                 .WithMessage($"La date de naissance est invalide (âge > {MaxAge} ans).");
 
 

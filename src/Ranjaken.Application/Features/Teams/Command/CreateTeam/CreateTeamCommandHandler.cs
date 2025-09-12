@@ -9,7 +9,7 @@ using Ranjaken.Domain.Interfaces.Services;
 
 namespace Ranjaken.Application.Features.Teams.Command.CreateTeam
 {
-    public class CreateTeamCommandHandler(IGenericRepositoryAsync<Team> _repo,IGenericEmailService<Team> _query ,IFileService _file) : IRequestHandler<CreateTeamCommand, TeamDto>
+    public class CreateTeamCommandHandler(IGenericRepositoryAsync<Team> _teamRepo,IGenericEmailService<Team> _query, IPostTeamRepository _temRepo, IFileService _file) : IRequestHandler<CreateTeamCommand, TeamDto>
     {
         public async Task<TeamDto> Handle(CreateTeamCommand request, CancellationToken cancellationToken)
         {
@@ -26,8 +26,8 @@ namespace Ranjaken.Application.Features.Teams.Command.CreateTeam
                 Status = InsriptionStatus.PENDING,
                 Logo = await _file.UploadAsync(request?.Logo, "Logo") ?? null
             };
-            await _repo.CreateAsync(team);
-            await _repo.SaveChangeAsync();
+            await _teamRepo.CreateAsync(team);
+            await _teamRepo.SaveChangeAsync();
             return team.ToDto();
         }
     }

@@ -28,8 +28,11 @@ namespace RanjaKen.Api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<DateOnly?>("BirthDate")
-                        .HasColumnType("date");
+                    b.Property<int?>("Age")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("BirthDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("timestamp with time zone");

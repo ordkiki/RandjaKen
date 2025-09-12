@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Ranjaken.Application.Dtos.PlayerDto;
+using Ranjaken.Application.Features.Players.Command.CreatePlayer;
 using Ranjaken.Application.Features.Players.Query;
 using Ranjaken.Application.Features.Players.Query.GetPlayerById;
 using Ranjaken.Application.Features.Users.Command.CreatePlayer;
@@ -20,10 +21,21 @@ namespace RanjaKen.Api.Controllers
     {
         #region Create
         [HttpPost]
-        public async Task<IActionResult> Create([FromForm] CreatePlayerCommand request)
+        public async Task<IActionResult> Create([FromForm] CreatePlayerRequest request)
         {
             if (request == null) throw new ApiException("Invalid request", 400, false);
-            PlayerDto result = await _mediator.Send(request);
+            PlayerDto result = await _mediator.Send(new CreatePlayerCommand
+            {
+                Avatar = request.Avatar,
+                BirthDate = request.BirthDate,
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                Idole = request.Idole,
+                Position = request.Position,
+                Pseudo = request.Pseudo,
+                Size = request.Size,
+                TeamId = request.TeamId
+            });
             return Ok(new ApiResponse<PlayerDto>
             {
                 Success = true,
